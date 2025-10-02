@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CANEZ QUISPE PHOL - Ingeniería de Sistemas</title>
+<style>
+  /* Reset */
+  *, *::before, *::after {
+    margin:0; padding:0; box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0B1D3F; /* azul oscuro */
+    color: #f0f4f8;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background-color: #062347;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  }
+
+  header img {
+    height: 70px;
+    border-radius: 8px;
+    border: 2px solid #0F4C81;
+    background: white;
+    flex-shrink: 0;
+  }
+
+  header h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #1DB0F5;
+    flex-grow: 1;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    user-select: none;
+  }
+
+  main {
+    flex-grow: 1;
+    padding: 30px 15px 60px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* Sobre mí */
+  #about {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    background: #062347cc;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 18px #1DB0F5aa;
+  }
+
+  #about img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #1DB0F5;
+    box-shadow: 0 0 18px #1DB0F5;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  #about div {
+    max-width: 800px;
+  }
+
+  #about h2 {
+    color: #1DB0F5;
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+
+  #about p {
+    font-size: 1.15rem;
+    color: #cfd8dc;
+    line-height: 1.5;
+  }
+
+  /* Semanas */
+  #weeks h2 {
+    color: #1DB0F5;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 0 5px #1DB0F5;
+  }
+
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  .week-card {
+    background: #0f2b65;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px #1DB0F5cc;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+  }
+
+  .week-card:hover,
+  .week-card:focus-within {
+    transform: translateY(-8px);
+    box-shadow: 0 0 30px #1DB0F5;
+    outline: none;
+  }
+
+  .week-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    filter: brightness(0.9);
+    transition: filter 0.3s ease;
+  }
+
+  .week-card:hover img,
+  .week-card:focus-within img {
+    filter: brightness(1);
+  }
+
+  .week-content {
+    padding: 20px 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .week-content h3 {
+    margin-bottom: 12px;
+    color: #1DB0F5;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(29,176,245,0.8);
+  }
+
+  .week-content p {
+    flex-grow: 1;
+    font-size: 1rem;
+    color: #d2dae2cc;
+    margin-bottom: 18px;
+  }
+
+  .week-content a {
+    align-self: flex-start;
+    background-color: #1DB0F5;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(29,176,245,0.7);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .week-content a:hover,
+  .week-content a:focus {
+    background-color: #0a82c9;
+    box-shadow: 0 8px 20px #0a82c9cc;
+    outline: none;
+  }
+
+  /* Formulario contacto */
+  #contact {
+    margin-top: 80px;
+    background: #062347cc;
+    padding: 35px 40px;
+    border-radius: 18px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 28px #1DB0F5cc;
+  }
+
+  #contact h2 {
+    color: #1DB0F5;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px #1DB0F5;
+  }
+
+  #contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  #contact label {
+    font-weight: 700;
+    color: #cfd8dc;
+    font-size: 1rem;
+    user-select: none;
+  }
+
+  #contact input, #contact textarea {
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    resize: vertical;
+    background: #103a7f;
+    color: white;
+    border: 2px solid #1DB0F5;
+    transition: border-color 0.3s ease;
+  }
+
+  #contact input:focus,
+  #contact textarea:focus {
+    outline: none;
+    border-color: #0a82c9;
+  }
+
+  #contact button {
+    background-color: #1DB0F5;
+    border: none;
+    padding: 16px;
+    font-weight: 700;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 0 6px 16px #1DB0F5cc;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+
+  #contact button:hover,
+  #contact button:focus {
+    background-color: #0a82c9;
+    outline: none;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #062347;
+    text-align: center;
+    padding: 18px 0;
+    color: #80bfff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: inset 0 1px 6px rgba(255,255,255,0.1);
+    margin-top: auto;
+    user-select: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    #about {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    #about div {
+      max-width: 100%;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <img src="Logo_upla_vertical (1).jpg" alt="Logo Universidad Peruana Los Andes" />
+  <h1>CANEZ QUISPE PHOL - Ingeniería de Sistemas</h1>
+</header>
+
+<main>
+  <section id="about" aria-label="Información personal">
+    <img src="WhatsApp Image 2025-09-29 at 10.46.00 PM.jpeg" alt="Foto CANEZ QUISPE PHOL" />
+    <div>
+      <h2>Sobre mí</h2>
+      <p>
+        Hola, soy <strong>CANEZ QUISPE PHOL</strong>, estudiante de Ingeniería de Sistemas y Computación.
+        En esta página comparto mis apuntes, tareas y proyectos para organizar mejor mi estudio.
+      </p>
+    </div>
+  </section>
+
+  <section id="weeks" aria-label="Semanas y proyectos">
+    <h2>Semanas y Proyectos</h2>
+    <div class="weeks-grid">
+
+      <article class="week-card" tabindex="0" aria-label="Semana 1: Introducción a bases de datos">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80" alt="Semana 1 imagen" />
+        <img src="https://pholcanez.my.canva.site/" alt="Semana 1 imagen" />
+        <div class="week-content">
+          <h3>Semana 1</h3>
+          <p>Introducción y conceptos básicos de bases de datos.</p>
+          <a href="https://www.canva.com/design/DAGzVvmBckk/nl88StjGHW54lShFNn2Lqg/view?utm_content=DAGzVvmBckk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=haf73388c94" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+          <a href="https://www.canva.com/design/DAG0pSohzW4/O7lIh_fTNEdhpSSbrhKGKg/view?utm_content=DAG0pSohzW4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=habcaecb80b" target="_blank" rel="noopener noreferrer">informe tecnico</a>
+          <a href="https://www.canva.com/design/DAG0pbl93Y8/acMDQVmTkMunLBKNp43AYw/view?utm_content=DAG0pbl93Y8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha9becf096a" target="_blank" rel="noopener noreferrer">Manual: Creación de una Cuenta en GitHub</a>
+            <a href="https://www.canva.com/design/DAG0paegCFo/c0iYZ_meD9RcqAZnAQnF3Q/view?utm_content=DAG0paegCFo&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h7eefa7ebe0" target="_blank" rel="noopener noreferrer">Manual de pagina GitHub</a>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 2: Modelo entidad-relación">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80" alt="Semana 2 imagen" />
+        <div class="week-content">
+          <h3>Semana 2</h3>
+          <p>Modelo entidad-relación y diagramas.</p>
+          <a href="https://www.canva.com/design/DAG0ppxpLSM/ShzJP6jpfL4gjVcaFBIgjQ/view?utm_content=DAG0ppxpLSM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h9f3aef4d1a" target="_blank" rel="noopener noreferrer">DIAGRAMAS</a>
+          <a href="https://www.canva.com/design/DAG0ppSwEXE/LfEayiWwgpD3wpHIT3sbLg/view?utm_content=DAG0ppSwEXE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he76adac93d" target="_blank" rel="noopener noreferrer">manual de instalacion deSQL SERVER</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 3: Normalización y dependencias funcionales">
+        <img src="https://images.unsplash.com/photo-1528747008803-34e936d17755?auto=format&fit=crop&w=400&q=80" alt="Semana 3 imagen" />
+        <div class="week-content">
+          <h3>Semana 3</h3>
+          <p>Normalización y dependencias funcionales.</p>
+          <a href="https://www.canva.com/design/DAG0pv6-hD0/3gfxKRQlLigR8IHqGIsNWQ/view?utm_content=DAG0pv6-hD0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h223bfb49ca" target="_blank" rel="noopener noreferrer">Ver tarea 1</a>
+           <a href="https://www.canva.com/design/DAG0psghB3Y/MdqhLTvetFQOZmQXkCTiQQ/view?utm_content=DAG0psghB3Y&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfd03f0ed50" target="_blank" rel="noopener noreferrer">Ver tarea 2</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 4: SQL básico">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="Semana 4 imagen" />
+        <div class="week-content">
+          <h3>Semana 4</h3>
+          <p>Consultas SQL básicas y operaciones CRUD.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana4" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 5: SQL avanzado y joins">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Semana 5 imagen" />
+        <div class="week-content">
+          <h3>Semana 5</h3>
+          <p>Consultas avanzadas, joins y subconsultas.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana5" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 6: Índices y optimización">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Semana 6 imagen" />
+        <div class="week-content">
+          <h3>Semana 6</h3>
+          <p>Índices, optimización y rendimiento en bases de datos.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana6" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 7: Seguridad en bases de datos">
+        <img src="https://images.unsplash.com/photo-1497493292307-31c376b6e479?auto=format&fit=crop&w=400&q=80" alt="Semana 7 imagen" />
+        <div class="week-content">
+          <h3>Semana 7</h3>
+          <p>Control de accesos y seguridad en bases de datos.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana7" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 8: Transacciones y concurrencia">
+        <img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=400&q=80" alt="Semana 8 imagen" />
+        <div class="week-content">
+          <h3>Semana 8</h3>
+          <p>Transacciones, ACID y manejo de concurrencia.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana8" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 9: Copias de seguridad y recuperación">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Semana 9 imagen" />
+        <div class="week-content">
+          <h3>Semana 9</h3>
+          <p>Backup, restauración y recuperación de datos.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana9" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 10: Bases de datos NoSQL">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Semana 10 imagen" />
+        <div class="week-content">
+          <h3>Semana 10</h3>
+          <p>Introducción a bases de datos NoSQL.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana10" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 11: Modelado NoSQL">
+        <img src="https://images.unsplash.com/photo-1523475496153-3be677e1b66d?auto=format&fit=crop&w=400&q=80" alt="Semana 11 imagen" />
+        <div class="week-content">
+          <h3>Semana 11</h3>
+          <p>Modelado y diseño en bases NoSQL.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana11" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 12: Bases de datos en la nube">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Semana 12 imagen" />
+        <div class="week-content">
+          <h3>Semana 12</h3>
+          <p>Bases de datos en la nube y servicios.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana12" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 13: Big Data">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Semana 13 imagen" />
+        <div class="week-content">
+          <h3>Semana 13</h3>
+          <p>Fundamentos de Big Data y herramientas.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana13" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 14: Inteligencia Artificial aplicada">
+        <img src="https://images.unsplash.com/photo-1523475496153-3be677e1b66d?auto=format&fit=crop&w=400&q=80" alt="Semana 14 imagen" />
+        <div class="week-content">
+          <h3>Semana 14</h3>
+          <p>Introducción a IA aplicada a bases de datos.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana14" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 15: Proyecto final - parte 1">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Semana 15 imagen" />
+        <div class="week-content">
+          <h3>Semana 15</h3>
+          <p>Inicio del proyecto final de bases de datos.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana15" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+      <article class="week-card" tabindex="0" aria-label="Semana 16: Proyecto final - parte 2 y presentación">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80" alt="Semana 16 imagen" />
+        <div class="week-content">
+          <h3>Semana 16</h3>
+          <p>Finalización y presentación del proyecto final.</p>
+          <a href="https://drive.google.com/drive/folders/tu-enlace-semana16" target="_blank" rel="noopener noreferrer">Ver tareas</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="contact" aria-label="Formulario de contacto">
+    <h2>Contacto</h2>
+    <form action="mailto:tu.email@dominio.com" method="POST" enctype="text/plain" aria-describedby="contact-instructions">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" name="Nombre" required placeholder="Tu nombre" aria-required="true" />
+
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" name="Correo" required placeholder="tu@email.com" aria-required="true" />
+
+      <label for="message">Mensaje:</label>
+      <textarea id="message" name="Mensaje" rows="5" required placeholder="Escribe tu mensaje aquí" aria-required="true"></textarea>
+
+      <button type="submit" aria-label="Enviar mensaje">Enviar</button>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 CANEZ QUISPE PHOL - Ingeniería de Sistemas
+</footer>
+
+</body>
+</html>
